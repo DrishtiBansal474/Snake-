@@ -1,25 +1,36 @@
 export class Snake {
-    constructor() {
-        this.body = [
-            { x: 10, y: 10 },
-            { x: 9, y: 10 },
-            { x: 8, y: 10 },
-        ];
-        this.direction = { x: 1, y: 0 };
-    }
 
+    constructor(direction = 'RIGHT') {
+        const head = { x: 10, y: 10 };
+        const trailingOffset = {
+            UP: { x: 0, y: 1 },
+            DOWN: { x: 0, y: -1 },
+            LEFT: { x: 1, y: 0 },
+            RIGHT: { x: -1, y: 0 }
+        }[direction];
+
+        this.body = [
+            head,
+            { x: head.x + trailingOffset.x, y: head.y + trailingOffset.y },
+            { x: head.x + trailingOffset.x * 2, y: head.y + trailingOffset.y * 2 }
+        ];
+    }
     getBody() {
+
         return this.body;
     }
-
-    setDirection(direction) {
-        const isOpposite =
-            direction.x === -this.direction.x && direction.y === -this.direction.y;
-
-        if (isOpposite) {
-            return;
-        }
-
-        this.direction = direction;
+    getHead() {
+        return this.body[0];
     }
+    move(newHead) {
+        return this.body.unshift(newHead);
+    }
+    removeTail() {
+        return this.body.pop();
+    }
+
+    grow(newHead) {
+        this.body.unshift(newHead);
+    }
+
 }
