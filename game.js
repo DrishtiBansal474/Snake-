@@ -106,14 +106,18 @@ export class Game {
 
         // Food
 
-        if (foodCollision(newHead, this.food)) {
-            this.score++;
-            this.food = createFood(
-                this.snake.getBody(),
-                this.rows,
-                this.columns
-            );
-        }
+       if (foodCollision(newHead, this.food)) {
+    this.score++;
+
+    console.log("Food eaten! Score:", this.score);
+    console.log("Snake length:", this.snake.getBody().length);
+
+    this.food = createFood(
+        this.snake.getBody(),
+        this.rows,
+        this.columns
+    );
+}
         else {
             this.snake.removeTail();
 
